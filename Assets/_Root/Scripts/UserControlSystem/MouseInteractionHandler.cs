@@ -1,33 +1,41 @@
+using Abstacts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseInteractionHandler : MonoBehaviour
+namespace InputSystem
 {
-    [SerializeField] private Camera _camera;
-    private void Update()
+    public class MouseInteractionHandler : MonoBehaviour
     {
-        ChooseObject();
-    }
-
-    private void ChooseObject()
-    {
-        if (!Input.GetMouseButtonDown(0))
-            return;
-
-        RaycastHit[] hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
-        if (hits.Length == 0)
-            return;
-        for (int i = 0; i < hits.Length; i++)
+        [SerializeField] private Camera _camera;
+        [SerializeField] private SelectableValue selectableValue;
+        private void Update()
         {
-            IProduce produce;
-            bool isProduces = hits[i].collider.TryGetComponent<IProduce>(out produce);
-            if(isProduces && produce != null)
+            ChooseObject();
+        }
+
+        private void ChooseObject()
+        {
+            if (!Input.GetMouseButtonDown(0))
+                return;
+
+            RaycastHit[] hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
+            if (hits.Length == 0)
             {
-                produce.Produce();
+                selectableValue.ResetCurrentSelection();
                 return;
             }
+            for (int i = 0; i < hits.Length; i++)
+            {
+                ISelectable selectable;
+                bool isProduces = hits[i].collider.TryGetComponent<ISelectable>(out selectable);
+                if (isProduces)
+                {
+                    selectableValue.SetValue(selectable);
+                    return;
+                }
 
+            }
         }
     }
 }

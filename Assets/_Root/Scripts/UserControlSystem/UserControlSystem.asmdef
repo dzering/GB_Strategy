@@ -2,7 +2,8 @@
     "name": "Inputs",
     "rootNamespace": "",
     "references": [
-        "GUID:b42816cbe1e7cf04cace5c567732a163"
+        "GUID:b42816cbe1e7cf04cace5c567732a163",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
