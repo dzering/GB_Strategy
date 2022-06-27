@@ -13,27 +13,33 @@ namespace InputSystem
         private void Start()
         {
             outline ??= CreateOutliner();
-            outline.transform.SetParent(parantTransform);
-            outline.transform.localPosition = Vector3.zero;
-
-            BoxCollider boxCollider = parantTransform.GetComponent<BoxCollider>();
-            Vector3 position = boxCollider.size;
-
-            outline.transform.position = parantTransform.position + Vector3.down * position.y / 2;
+            InitOutline();
 
             selectableValue.OnSelected += ShowSelected;
             ShowSelected(selectableValue.CurrentSelection);
         }
 
+        private void InitOutline()
+        {
+            outline.transform.SetParent(parantTransform);
+            outline.transform.localPosition = Vector3.zero;
+
+            outline.transform.Rotate(90, 0, 0);
+            outline.transform.localScale = Vector3.one * 1.4f;
+
+
+            Vector3 position = parantTransform.GetComponent<BoxCollider>().size;
+            outline.transform.position = parantTransform.position + Vector3.down * position.y / 2;
+
+
+        }
+
         private GameObject CreateOutliner()
         {
-            GameObject outline = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            GameObject outline = GameObject.CreatePrimitive(PrimitiveType.Quad);
             outline.GetComponent<Renderer>().material.color = Color.yellow;
             return outline;
         }
-
-
-
 
         private void ShowSelected(ISelectable selectable) 
         {
