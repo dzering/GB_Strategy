@@ -7,5 +7,6 @@ namespace Abstacts
         float Health { get; }
         float MaxHealth { get; }
         Sprite Icon { get; }
+        string Name { get; }
     }
 }
