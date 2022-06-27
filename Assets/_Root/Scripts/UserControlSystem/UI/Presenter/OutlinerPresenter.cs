@@ -15,6 +15,12 @@ namespace InputSystem
             outline ??= CreateOutliner();
             outline.transform.SetParent(parantTransform);
             outline.transform.localPosition = Vector3.zero;
+
+            BoxCollider boxCollider = parantTransform.GetComponent<BoxCollider>();
+            Vector3 position = boxCollider.size;
+
+            outline.transform.position = parantTransform.position + Vector3.down * position.y / 2;
+
             selectableValue.OnSelected += ShowSelected;
             ShowSelected(selectableValue.CurrentSelection);
         }
@@ -25,6 +31,9 @@ namespace InputSystem
             outline.GetComponent<Renderer>().material.color = Color.yellow;
             return outline;
         }
+
+
+
 
         private void ShowSelected(ISelectable selectable) 
         {
