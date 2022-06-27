@@ -1,11 +1,9 @@
 using Abstacts;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace InputSystem
 {
-    public class MouseInteractionHandler : MonoBehaviour
+    public class MouseInteractionPresenter : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private SelectableValue selectableValue;

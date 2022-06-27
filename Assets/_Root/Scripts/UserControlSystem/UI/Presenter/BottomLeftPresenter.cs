@@ -6,7 +6,7 @@ using Abstacts;
 
 namespace UI
 {
-    public class BottomLeftUI : MonoBehaviour
+    public class BottomLeftPresenter : MonoBehaviour
     {
         [SerializeField] private SelectableValue selectableValue;
 
