@@ -14,6 +14,7 @@ namespace Buildings
 
         public Sprite Icon => icon;
 
+        public string Name => gameObject.name;
 
         public void ProduceUnit()
         {
