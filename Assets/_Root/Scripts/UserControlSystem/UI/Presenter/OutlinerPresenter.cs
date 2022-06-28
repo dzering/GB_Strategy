@@ -30,8 +30,6 @@ namespace InputSystem
 
             Vector3 position = parantTransform.GetComponent<BoxCollider>().size;
             outline.transform.position = parantTransform.position + Vector3.down * position.y / 2;
-
-
         }
 
         private GameObject CreateOutliner()
