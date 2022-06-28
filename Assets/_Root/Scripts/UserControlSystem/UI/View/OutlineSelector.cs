@@ -19,15 +19,25 @@ public class OutlineSelector : MonoBehaviour
     private GameObject CreateOutlineSelector()
     {
         GameObject go = GameObject.CreatePrimitive(PrimitiveType.Quad);
-
         go.transform.Rotate(90,0, 0);
+
         Vector3 size = transform.gameObject.GetComponent<BoxCollider>().size;
         go.transform.localScale = new Vector3(size.x * offsetSize, size.z * offsetSize, 0.01f);
 
         go.transform.position = transform.position + Vector3.down * size.y / 2;
         go.transform.SetParent(transform);
 
-        go.GetComponent<Renderer>().material.color = Color.yellow;
+        //Create material
+        Material mat = new Material(Shader.Find("Standard"));
+
+        mat.SetColor("_Color", new Color(1, 0, 0, 0.5f));
+        mat.SetFloat("_Mode", 3);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        mat.EnableKeyword("_ALPHABLEND_ON");
+        mat.renderQueue = 3000;
+
+        go.GetComponent<Renderer>().material = mat;
 
         return go;
     }
