@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+
 [RequireComponent(typeof(BoxCollider))]
 public class OutlineSelector : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class OutlineSelector : MonoBehaviour
     {
         target = transform;
         outlineSelector ??= CreateOutlineSelector();
-        //outlineSelector.SetActive(isSelectedCash);
+        outlineSelector.SetActive(isSelectedCash);
     }
 
     private GameObject CreateOutlineSelector()
