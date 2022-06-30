@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Abstacts
+namespace Abstracts
 {
     public interface ISelectable
     {
