@@ -1,18 +1,37 @@
 ﻿using UnityEngine;
+using Abstracts;
+using InputSystem;
 using System.Collections;
+using System;
 
-public class NewMonoBehaviour : MonoBehaviour
+namespace InputSystem
 {
-	// Use this for initialization
-	void Start()
-	{
+    public class CommandButtonsPresenter : MonoBehaviour
+    {
+        [SerializeField] private SelectableValue selectableValue;
+        [SerializeField] private CommandButtonView view;
 
-	}
+        private ISelectable currentSelectable;
 
-	// Update is called once per frame
-	void Update()
-	{
-			
-	}
+        private void Start()
+        {
+            selectableValue.OnSelected += onSelected;
+            onSelected(selectableValue.CurrentSelection);
+            view.OnClick += onButtonCklick;
+        }
+
+        private void onSelected(ISelectable obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void onButtonCklick(ICommandExecutor obj)
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+
 }
+
 

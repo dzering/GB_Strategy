@@ -4,55 +4,59 @@ using UnityEngine;
 using Abstracts;
 using UnityEngine.UI;
 
-public class CommandButtonView : MonoBehaviour
+namespace InputSystem
 {
-	public Action<ICommandExecutor> OnClick;
 
-	[SerializeField] private GameObject produceUnitButton;
-	[SerializeField] private GameObject attacButton;
-	[SerializeField] private GameObject moveButton;
-	[SerializeField] private GameObject patrolButton;
-	[SerializeField] private GameObject stopButton;
+	public class CommandButtonView : MonoBehaviour
+	{
+		public Action<ICommandExecutor> OnClick;
 
-	private Dictionary<Type, GameObject> buttonByExecutorType;
+		[SerializeField] private GameObject produceUnitButton;
+		[SerializeField] private GameObject attacButton;
+		[SerializeField] private GameObject moveButton;
+		[SerializeField] private GameObject patrolButton;
+		[SerializeField] private GameObject stopButton;
 
-    private void Start()
-    {
-		buttonByExecutorType = new Dictionary<Type, GameObject>();
-		buttonByExecutorType.Add(typeof(CommandExecutorBase<IAttackCommand>), attacButton);
-		buttonByExecutorType.Add(typeof(CommandExecutorBase<IProduceUnitCommand>), produceUnitButton);
-		buttonByExecutorType.Add(typeof(CommandExecutorBase<IPatrolCommand>), patrolButton);
-		buttonByExecutorType.Add(typeof(CommandExecutorBase<IStopCommand>), stopButton);
-		buttonByExecutorType.Add(typeof(CommandExecutorBase<IMoveCommand>), moveButton);
-    }
+		private Dictionary<Type, GameObject> buttonByExecutorType;
 
-	public void MakeLayout(ICommandExecutor[] commandExecutors)
-    {
-        for (int i = 0; i < commandExecutors.Length; i++)
-        {
-            foreach (var keyValuePair in buttonByExecutorType)
-            {
-				if (keyValuePair.Key.IsAssignableFrom(commandExecutors[i].GetType()))
-                {
-					GameObject gameObject = keyValuePair.Value;
-					gameObject.SetActive(true);
-					Button button = gameObject.GetComponent<Button>();
-					button.onClick.AddListener(() => OnClick?.Invoke(commandExecutors[i]));
-					continue;
-                }
-            }
-
+		private void Start()
+		{
+			buttonByExecutorType = new Dictionary<Type, GameObject>();
+			buttonByExecutorType.Add(typeof(CommandExecutorBase<IAttackCommand>), attacButton);
+			buttonByExecutorType.Add(typeof(CommandExecutorBase<IProduceUnitCommand>), produceUnitButton);
+			buttonByExecutorType.Add(typeof(CommandExecutorBase<IPatrolCommand>), patrolButton);
+			buttonByExecutorType.Add(typeof(CommandExecutorBase<IStopCommand>), stopButton);
+			buttonByExecutorType.Add(typeof(CommandExecutorBase<IMoveCommand>), moveButton);
 		}
-    }
 
-	public void Clear()
-    {
-        foreach (var keyValuePair in buttonByExecutorType)
-        {
-			keyValuePair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
-			keyValuePair.Value.SetActive(false);
-        }
-    }
+		public void MakeLayout(ICommandExecutor[] commandExecutors)
+		{
+			for (int i = 0; i < commandExecutors.Length; i++)
+			{
+				foreach (var keyValuePair in buttonByExecutorType)
+				{
+					if (keyValuePair.Key.IsAssignableFrom(commandExecutors[i].GetType()))
+					{
+						GameObject gameObject = keyValuePair.Value;
+						gameObject.SetActive(true);
+						Button button = gameObject.GetComponent<Button>();
+						button.onClick.AddListener(() => OnClick?.Invoke(commandExecutors[i]));
+						continue;
+					}
+				}
 
+			}
+		}
+
+		public void Clear()
+		{
+			foreach (var keyValuePair in buttonByExecutorType)
+			{
+				keyValuePair.Value.GetComponent<Button>().onClick.RemoveAllListeners();
+				keyValuePair.Value.SetActive(false);
+			}
+		}
+
+	}
 }
 
