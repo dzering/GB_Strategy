@@ -2,7 +2,7 @@ using InputSystem;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using Abstacts;
+using Abstracts;
 
 namespace UI
 {
@@ -24,7 +24,7 @@ namespace UI
 
         private void onSelected(ISelectable selected)
         {
-            selectedImage.enabled = selected != null;
+            selectedImage.enabled = selected != null;   
             healthSlider.gameObject.SetActive(selected != null);
             text.enabled = selected != null;
 

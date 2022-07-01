@@ -1,5 +1,5 @@
 ﻿using InputSystem;
-using Abstacts;
+using Abstracts;
 using UnityEngine;
 
 namespace UI

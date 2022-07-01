@@ -6,9 +6,4 @@ namespace Abstracts
     {
         GameObject UnitPrefab { get; }
     }
-
-    public interface IAttackCommand : ICommand { }
-    public interface IMoveCommand : ICommand { }
-    public interface IPatrolCommand : ICommand { }
-    public interface IStopCommand : ICommand { }
 }
