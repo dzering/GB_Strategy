@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using Abstracts;
-using InputSystem;
-using System.Collections;
+using System.Collections.Generic;
 using System;
 
 namespace InputSystem
@@ -17,17 +16,37 @@ namespace InputSystem
         {
             selectableValue.OnSelected += onSelected;
             onSelected(selectableValue.CurrentSelection);
-            view.OnClick += onButtonCklick;
+            view.OnClick += onButtonClick;
         }
 
-        private void onSelected(ISelectable obj)
+        private void onSelected(ISelectable selectable)
         {
-            throw new System.NotImplementedException();
+            if (currentSelectable == selectable)
+                return;
+
+            currentSelectable = selectable;
+            view.Clear();
+
+            if (selectable != null)
+            {
+                List<ICommandExecutor> commandExecutors = new List<ICommandExecutor>();
+                commandExecutors.AddRange((selectable as Component).GetComponentsInParent<ICommandExecutor>());
+                view.MakeLayout(commandExecutors);
+            }
         }
 
-        private void onButtonCklick(ICommandExecutor obj)
+        private void onButtonClick(ICommandExecutor commandExecutor)
         {
-            throw new NotImplementedException();
+            CommandExecutorBase<IProduceUnitCommand> produceUnit = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
+            if (produceUnit != null)
+            {
+                    produceUnit.ExecuteSpecificCommand(new ProduceUnitCommand());
+                    return;
+
+            }
+            throw new ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(onButtonClick)}:" +
+                $" Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
+
         }
 
     }

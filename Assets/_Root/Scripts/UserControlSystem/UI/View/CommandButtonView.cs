@@ -29,9 +29,9 @@ namespace InputSystem
 			buttonByExecutorType.Add(typeof(CommandExecutorBase<IMoveCommand>), moveButton);
 		}
 
-		public void MakeLayout(ICommandExecutor[] commandExecutors)
+		public void MakeLayout(List<ICommandExecutor> commandExecutors)
 		{
-			for (int i = 0; i < commandExecutors.Length; i++)
+			for (int i = 0; i < commandExecutors.Count; i++)
 			{
 				foreach (var keyValuePair in buttonByExecutorType)
 				{
