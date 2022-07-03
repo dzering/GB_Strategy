@@ -9,6 +9,7 @@ namespace InputSystem
     {
         [SerializeField] private SelectableValue selectableValue;
         [SerializeField] private CommandButtonView view;
+        [SerializeField] private AssetContext context;
 
         private ISelectable currentSelectable;
 
@@ -40,8 +41,8 @@ namespace InputSystem
             CommandExecutorBase<IProduceUnitCommand> produceUnit = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
             if (produceUnit != null)
             {
-                    produceUnit.ExecuteSpecificCommand(new ProduceUnitCommand());
-                    return;
+                produceUnit.ExecuteSpecificCommand(context.Inject(new ProduceUnitCommand()));
+                return;
 
             }
             throw new ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(onButtonClick)}:" +
