@@ -1,7 +1,7 @@
 using Abstracts;
 using UnityEngine;
 
-namespace Buildings
+namespace Core.Buildings
 {
     public class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable
     {

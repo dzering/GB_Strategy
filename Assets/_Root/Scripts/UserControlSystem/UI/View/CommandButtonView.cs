@@ -31,21 +31,22 @@ namespace InputSystem
 
 		public void MakeLayout(List<ICommandExecutor> commandExecutors)
 		{
-			for (int i = 0; i < commandExecutors.Count; i++)
-			{
+            foreach (var currentExecutor in commandExecutors)
+            {
 				foreach (var keyValuePair in buttonByExecutorType)
 				{
-					if (keyValuePair.Key.IsAssignableFrom(commandExecutors[i].GetType()))
+					if (keyValuePair.Key.IsAssignableFrom(currentExecutor.GetType()))
 					{
 						GameObject gameObject = keyValuePair.Value;
 						gameObject.SetActive(true);
 						Button button = gameObject.GetComponent<Button>();
-						button.onClick.AddListener(() => OnClick?.Invoke(commandExecutors[i]));
+						button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
 						continue;
 					}
 				}
 
-			}
+            }
+			
 		}
 
 		public void Clear()

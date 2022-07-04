@@ -45,6 +45,14 @@ namespace InputSystem
                 return;
 
             }
+
+            CommandExecutorBase<IAttackCommand> attackCommand = commandExecutor as CommandExecutorBase<IAttackCommand>;
+            if(attackCommand != null)
+            {
+                attackCommand.ExecuteCommand(new AttackCommandExecutor());
+                return;
+            }
+              
             throw new ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(onButtonClick)}:" +
                 $" Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
 
