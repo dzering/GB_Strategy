@@ -41,7 +41,7 @@ namespace InputSystem
             CommandExecutorBase<IProduceUnitCommand> produceUnit = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
             if (produceUnit != null)
             {
-                produceUnit.ExecuteSpecificCommand(context.Inject(new ProduceUnitCommand()));
+                produceUnit.ExecuteSpecificCommand(context.Inject(new ProduceUnitCommandHeir()));
                 return;
 
             }
