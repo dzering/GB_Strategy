@@ -1,9 +1,9 @@
-using Abstacts;
+using Abstracts;
 using UnityEngine;
 
-namespace Buildings
+namespace Core.Buildings
 {
-    public class MainBuilding : MonoBehaviour, IUnitProducer, ISelectable
+    public class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable
     {
         [SerializeField] float health;
         [SerializeField] float maxHealth;
@@ -14,11 +14,14 @@ namespace Buildings
 
         public Sprite Icon => icon;
 
+        public string Name => gameObject.name;
 
-        public void ProduceUnit()
+        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
         {
-            GameObject.CreatePrimitive(PrimitiveType.Sphere).
-                transform.position = new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            Instantiate(
+                command.UnitPrefab,
+                new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
+                Quaternion.identity);
         }
     }
 }

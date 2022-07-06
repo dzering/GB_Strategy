@@ -1,5 +1,6 @@
-using Abstacts;
+using Abstracts;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace InputSystem
 {
@@ -7,6 +8,8 @@ namespace InputSystem
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private SelectableValue selectableValue;
+        [SerializeField] private EventSystem eventSystem;
+
         private void Update()
         {
             ChooseObject();
@@ -16,6 +19,11 @@ namespace InputSystem
         {
             if (!Input.GetMouseButtonDown(0))
                 return;
+
+            if (eventSystem.IsPointerOverGameObject())
+            {
+                return;
+            }
 
             RaycastHit[] hits = Physics.RaycastAll(_camera.ScreenPointToRay(Input.mousePosition));
             if (hits.Length == 0)
