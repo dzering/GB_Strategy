@@ -5,6 +5,6 @@ public class PatrolCommandExecutor : CommandExecutorBase<IPatrolCommand>
 {
     public override void ExecuteSpecificCommand(IPatrolCommand command)
     {
-        Debug.Log($"{name} is patroling");
+        Debug.Log($"{command.ActionName} command is in progress");
     }
 }

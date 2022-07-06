@@ -1,7 +1,7 @@
 using Abstracts;
 using UnityEngine;
 
-namespace InputSystem
+namespace InputSystem.Commands
 {
     public class ProduceUnitCommand : IProduceUnitCommand
     {

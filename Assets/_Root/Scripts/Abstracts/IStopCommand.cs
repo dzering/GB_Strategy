@@ -1,4 +1,7 @@
 ﻿namespace Abstracts
 {
-    public interface IStopCommand : ICommand { }
+    public interface IStopCommand : ICommand 
+    {
+        string ActionName { get; }
+    }
 }
