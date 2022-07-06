@@ -12,7 +12,7 @@ namespace InputSystem
 		public Action<ICommandExecutor> OnClick;
 
 		[SerializeField] private GameObject produceUnitButton;
-		[SerializeField] private GameObject attacButton;
+		[SerializeField] private GameObject attackButton;
 		[SerializeField] private GameObject moveButton;
 		[SerializeField] private GameObject patrolButton;
 		[SerializeField] private GameObject stopButton;
@@ -22,7 +22,7 @@ namespace InputSystem
 		private void Start()
 		{
 			buttonByExecutorType = new Dictionary<Type, GameObject>();
-			buttonByExecutorType.Add(typeof(CommandExecutorBase<IAttackCommand>), attacButton);
+			buttonByExecutorType.Add(typeof(CommandExecutorBase<IAttackCommand>), attackButton);
 			buttonByExecutorType.Add(typeof(CommandExecutorBase<IProduceUnitCommand>), produceUnitButton);
 			buttonByExecutorType.Add(typeof(CommandExecutorBase<IPatrolCommand>), patrolButton);
 			buttonByExecutorType.Add(typeof(CommandExecutorBase<IStopCommand>), stopButton);
@@ -44,7 +44,6 @@ namespace InputSystem
 						continue;
 					}
 				}
-
             }
 			
 		}

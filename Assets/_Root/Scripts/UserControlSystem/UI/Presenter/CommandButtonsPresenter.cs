@@ -2,6 +2,7 @@
 using Abstracts;
 using System.Collections.Generic;
 using System;
+using InputSystem.Commands;
 
 namespace InputSystem
 {
@@ -41,7 +42,7 @@ namespace InputSystem
             CommandExecutorBase<IProduceUnitCommand> produceUnit = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
             if (produceUnit != null)
             {
-                produceUnit.ExecuteSpecificCommand(context.Inject(new ProduceUnitCommandHeir()));
+                produceUnit.ExecuteSpecificCommand(context.Inject(new ProduceUnitCommand()));
                 return;
 
             }
@@ -49,10 +50,31 @@ namespace InputSystem
             CommandExecutorBase<IAttackCommand> attackCommand = commandExecutor as CommandExecutorBase<IAttackCommand>;
             if(attackCommand != null)
             {
-                attackCommand.ExecuteCommand(new AttackCommandExecutor());
+                attackCommand.ExecuteCommand(new AttackCommand());
                 return;
             }
-              
+
+            CommandExecutorBase<IMoveCommand> moveCommand = commandExecutor as CommandExecutorBase<IMoveCommand>;
+            if (moveCommand != null)
+            {
+                moveCommand.ExecuteCommand(new MoveCommand());
+                return;
+            }
+
+            CommandExecutorBase<IPatrolCommand> patrolCommand = commandExecutor as CommandExecutorBase<IPatrolCommand>;
+            if (patrolCommand != null)
+            {
+                patrolCommand.ExecuteCommand(new PatrolCommand());
+                return;
+            }
+
+            CommandExecutorBase<IStopCommand> stopCommand = commandExecutor as CommandExecutorBase<IStopCommand>;
+            if(stopCommand != null)
+            {
+                stopCommand.ExecuteCommand(new StopCommand());
+                return;
+            }
+
             throw new ApplicationException($"{nameof(CommandButtonsPresenter)}.{nameof(onButtonClick)}:" +
                 $" Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
 

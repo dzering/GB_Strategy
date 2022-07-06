@@ -1,34 +1,30 @@
-﻿using System;
-using System.Reflection;
-using UnityEngine;
-
+﻿using System.Reflection;
+using System;
 public static class AssetInjector
 {
-	private static readonly Type injectAssetAttribute = typeof(InjectAssetAttribute);
-
+	private static readonly Type injectAssetAttributeType = typeof(InjectAssetAttribute); 
 	public static T Inject<T>(this AssetContext context, T target)
 	{
+		
 		Type targetType = target.GetType();
 		while(targetType != null)
         {
-			FieldInfo[] targetFields = targetType.GetFields(BindingFlags.NonPublic |
-													BindingFlags.Instance |
-													BindingFlags.Public);
-
-			for (int i = 0; i < targetFields.Length; i++)
+			FieldInfo[] allFields = targetType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+			for (int i = 0; i < allFields.Length; i++)
 			{
-				FieldInfo fieldInfo = targetFields[i];
-				InjectAssetAttribute _injectAssetAttrubute = fieldInfo.GetCustomAttribute(injectAssetAttribute) as InjectAssetAttribute;
-				if (_injectAssetAttrubute == null)
-					continue;
+				FieldInfo fieldInfo = allFields[i];
+				InjectAssetAttribute injectAssetAttribute =  fieldInfo.GetCustomAttribute(injectAssetAttributeType) as InjectAssetAttribute;
 
-				var objectToInject = context.GetObjectOfType(fieldInfo.FieldType, _injectAssetAttrubute.assetName);
+				if(injectAssetAttribute == null)
+				{
+					continue;
+				}
+				var objectToInject = context.GetObjectOfType(fieldInfo.FieldType, injectAssetAttribute.assetName);
 				fieldInfo.SetValue(target, objectToInject);
 			}
-
 			targetType = targetType.BaseType;
-        }
 
+        }
 		return target;
 	}
 }

@@ -1,4 +1,7 @@
 ﻿namespace Abstracts
 {
-    public interface IMoveCommand : ICommand { }
+    public interface IMoveCommand : ICommand 
+    {
+        string ActionName { get; }
+    }
 }
