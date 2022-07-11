@@ -48,7 +48,8 @@ namespace InputSystem
 			
 		}
 
-		public void Clear()
+
+        public void Clear()
 		{
 			foreach (var keyValuePair in buttonByExecutorType)
 			{

@@ -7,6 +7,5 @@ namespace InputSystem.Commands
     {
         public GameObject UnitPrefab => unitPfefab;
         [InjectAsset("Enemy01")]private GameObject unitPfefab;
-
     }
 }

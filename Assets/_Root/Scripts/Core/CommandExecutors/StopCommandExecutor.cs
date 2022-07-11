@@ -8,4 +8,3 @@ public class StopCommandExecutor : CommandExecutorBase<IStopCommand>
         Debug.Log($"{command.ActionName} command is in progress");
     }
 }
-
